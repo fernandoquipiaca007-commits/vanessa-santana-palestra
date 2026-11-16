@@ -3,5 +3,5 @@
 Landing page estática no modelo padrão da agência (mesmo formato da Dra. Paula): `index.html` + `assets/`, sem build.
 
 - Formulário abre o grupo do WhatsApp da palestra.
-- Leads só são guardados quando `SUPABASE_URL`/`SUPABASE_KEY` (fim do `index.html`) forem preenchidos.
-- Pixel da Meta: colar o código no `<head>` (há um comentário marcando o lugar).
+- Leads vão para `public.leads` do Supabase (`sjqxmawhvzowfkbmnjtm`); a função `meta-capi` envia o `Lead` à API de Conversões.
+- Pixel da Meta: `1027109377103699` (Palestra Vanessa), instalado no `<head>`.
