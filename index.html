@@ -71,6 +71,14 @@ function handleSubmit(event) {
       body: JSON.stringify(lead)
     }).catch(() => {});
   }
+  // /api/lead é uma função da própria Vercel: encaminha o lead para o Infinitum (CRM)
+  // sem expor nenhum token no navegador.
+  fetch('/api/lead', {
+    method: 'POST',
+    keepalive: true,
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(lead)
+  }).catch(() => {});
   if (window.fbq) fbq('track', 'Lead', {}, { eventID: eventId });
   const cookie = (n) => (document.cookie.match('(?:^|; )' + n + '=([^;]*)') || [])[1];
   fetch(SUPABASE_URL + '/functions/v1/meta-capi', {
