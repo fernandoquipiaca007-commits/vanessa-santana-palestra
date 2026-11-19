@@ -59,10 +59,15 @@ module.exports = async (req, res) => {
     if (INFINITUM_FIELD_LGPD) values.push({ field_id: INFINITUM_FIELD_LGPD, value: INFINITUM_LGPD_VALUE || 'Autorizo' });
     if (INFINITUM_FIELD_CONFIRM) values.push({ field_id: INFINITUM_FIELD_CONFIRM, value: INFINITUM_CONFIRM_VALUE || 'Confirmo' });
 
+    const faltando = ['EMAIL', 'WHATSAPP', 'LGPD', 'CONFIRM'].filter((k) => !process.env['INFINITUM_FIELD_' + k]);
+    if (faltando.length) console.warn('Campos do Infinitum sem field_id configurado (ignorados):', faltando.join(', '));
+
     const payload = {
       pop_id: INFINITUM_POP_ID,
       phase_id: INFINITUM_PHASE_ID,
-      title: `Lead - ${nome}`.slice(0, 200),
+      // O WhatsApp vai também no título: assim aparece na lista de cards mesmo que o
+      // campo do formulário do Infinitum não esteja mapeado (INFINITUM_FIELD_WHATSAPP).
+      title: `Lead - ${nome} - ${whatsapp}`.slice(0, 200),
       description: ['Inscrição recebida pela landing page.', `Nome: ${nome}`, `E-mail: ${email}`, `WhatsApp: ${whatsapp}`, ...origem].join(' | '),
       values
     };
